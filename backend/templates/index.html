@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="weather-container">
+
+        <h1>🌦️ Weather App</h1>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="cityInput"
+                placeholder="Enter city name"
+            >
+
+            <button onclick="getWeather()">
+                Search
+            </button>
+        </div>
+
+        <p id="errorMessage"></p>
+
+        <div id="weatherResult" class="weather-result">
+
+            <h2 id="cityName">City</h2>
+
+            <p id="dateTime">--</p>
+
+            <img
+                id="weatherIcon"
+                src=""
+                alt="Weather Icon"
+            >
+
+            <h3 id="temperature">--°C</h3>
+
+            <p id="condition">Weather condition</p>
+
+            <div class="weather-details">
+
+                <div>
+                    <strong>💧</strong>
+                    <p id="humidity">--%</p>
+                    <span>Humidity</span>
+                </div>
+
+                <div>
+                    <strong>💨</strong>
+                    <p id="windSpeed">-- m/s</p>
+                    <span>Wind Speed</span>
+                </div>
+
+                <div>
+                    <strong>🌡️</strong>
+                    <p id="feelsLike">--°C</p>
+                    <span>Feels Like</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
