@@ -1,3 +1,5 @@
+from urllib import response
+
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
@@ -31,15 +33,10 @@ def get_weather():
     }
 
     response = requests.get(url, params=params)
-
-    if response.status_code == 404:
-        return jsonify({"error": "City not found"}), 404
-
     if response.status_code != 200:
-        return jsonify({"error": "Unable to fetch weather"}), 500
-
-    return jsonify(response.json())
-
+        return jsonify({
+        "error": response.json().get("message", "Unable to fetch weather")
+    }), response.status_code
 
 if __name__ == "__main__":
     app.run(debug=True)
