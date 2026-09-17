@@ -23,7 +23,7 @@ async function getWeather() {
     try {
 
         const response = await fetch(
-    `http://127.0.0.1:5000/weather?city=${encodeURIComponent(city)}`
+    '/weather?city=${encodeURIComponent(city)}'
 );
 
         if (!response.ok) {
