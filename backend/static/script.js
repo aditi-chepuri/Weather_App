@@ -1,9 +1,7 @@
 
-
 async function getWeather() {
 
     const city = document.getElementById("cityInput").value.trim();
-
     const errorMessage = document.getElementById("errorMessage");
 
     // Check empty input
@@ -22,15 +20,17 @@ async function getWeather() {
 
     try {
 
+        // Fetch weather from Flask backend
         const response = await fetch(
-    '/weather?city=${encodeURIComponent(city)}'
-);
-
-        if (!response.ok) {
-            throw new Error("City not found");
-        }
+            `/weather?city=${encodeURIComponent(city)}`
+        );
 
         const data = await response.json();
+
+        // Handle API errors
+        if (!response.ok) {
+            throw new Error(data.error || "Unable to fetch weather");
+        }
 
         // Get weather condition
         const weatherMain = data.weather[0].main.toLowerCase();
@@ -123,34 +123,18 @@ async function getWeather() {
 
     } catch (error) {
 
-        // Handle errors
-        if (error.message === "City not found") {
-
-            errorMessage.textContent =
-                "City not found. Please check the city name.";
-
-        } else {
-
-            errorMessage.textContent =
-                "Unable to fetch weather. Please try again.";
-        }
+        errorMessage.textContent =
+            error.message || "Unable to fetch weather. Please try again.";
 
         // Reset weather display
         document.getElementById("cityName").textContent = "City";
-
         document.getElementById("dateTime").textContent = "--";
-
         document.getElementById("temperature").textContent = "--°C";
-
         document.getElementById("condition").textContent =
             "Weather condition";
-
         document.getElementById("humidity").textContent = "--%";
-
         document.getElementById("windSpeed").textContent = "-- m/s";
-
         document.getElementById("feelsLike").textContent = "--°C";
-
         document.getElementById("weatherIcon").src = "";
     }
 }
@@ -167,3 +151,4 @@ document.getElementById("cityInput").addEventListener(
 
     }
 );
+
